@@ -10,11 +10,40 @@ mKast is een aanpasbare game launcher met een retro arcade-stijl interface. Hier
 - Admin-modus voor het toevoegen/bewerken van games  
 - Wachtwoordbeveiliging om ongeautoriseerde afsluiting te voorkomen  
 
+## Installatie
+
+1. **Installeer de benodigde pakketten**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+   
+   Dit installeert:
+   - pygame: Voor grafische weergave en gebruikersinterface
+   - pillow: Voor beeldverwerking
+   - pywin32: Voor Windows API-toegang voor icoonextractie
+
+2. **Alternatieve handmatige installatie**:
+   ```bash
+   pip install pygame
+   pip install pillow
+   pip install pywin32
+   ```
+
 ## Aan de slag
 
 1. **Start de launcher**:
    ```bash
-   python game_launcher.py
+   python main.py
+   ```
+   
+   Of met een aangepast games-bestand:
+   ```bash
+   python main.py games_demo.json
+   ```
+   
+   Of met de -g optie:
+   ```bash
+   python main.py -g games_demo.json
    ```
 
 2. **Standaard wachtwoorden**:
@@ -74,7 +103,7 @@ Voor de beste visuele ervaring kun je aangepaste pixelart gebruiken:
 Probeer het bestand `games_demo.json` om voorbeelden te zien met geanimeerde GIFs:
 
 ```bash
-python game_launcher.py -g games_demo.json
+python main.py -g games_demo.json
 ```
 
 Of kopieer de demo-afbeeldingen naar je normale gameslijst.
@@ -94,13 +123,20 @@ Of kopieer de demo-afbeeldingen naar je normale gameslijst.
 ## Problemen oplossen
 
 Als je tegen problemen aanloopt:
-1. Controleer of alle benodigde Python-bibliotheken zijn geïnstalleerd  
-2. Controleer of de bestandslocaties in `games.json` juist zijn  
+1. Controleer of alle benodigde Python-bibliotheken zijn geïnstalleerd (`pip install -r requirements.txt`)
+2. Controleer of de bestandslocaties in `games.json` juist zijn
 3. Zorg dat de `assets`-mappen bestaan en de juiste rechten hebben
+4. Als er een foutmelding verschijnt over ontbrekende modules, zorg dan dat alle benodigde pakketten zijn geïnstalleerd
 
 ## Credits
 
 De mKast Game Launcher maakt gebruik van:
 - Pygame voor grafische weergave en UI  
 - PIL/Pillow voor beeldverwerking  
-- Pixel Emulator-lettertype van Genshichi Yasui  
+- Pixel Emulator-lettertype van Genshichi Yasui
+- Pywin32 voor Windows API-toegang
+
+De applicatie gebruikt een modulaire structuur voor betere onderhoudbaarheid:
+- `src/core/`: Kernfunctionaliteit
+- `src/ui/`: UI-componenten
+- `src/utils/`: Hulpfuncties
