@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron .",
     "dev": "electron . --dev",
-    "build": "electron-builder",
+    "build": "electron-builder --win",
     "build-win": "electron-builder --win",
     "dist": "electron-builder --publish=never",
     "test": "jest",
@@ -47,11 +47,16 @@
     ],
     "win": {
       "target": "nsis",
-      "icon": "assets/icon.ico"
+      "icon": "assets/icon.ico",
+      "sign": false,
+      "certificateSubjectName": null
     },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true
-    }
+    },
+    "publish": null,
+    "mac": null,
+    "linux": null
   }
 }
