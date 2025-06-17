@@ -8,7 +8,6 @@ Een retro-stijl game launcher speciaal ontworpen voor arcade kasten, gebouwd met
 - **Fullscreen Kiosk Mode** - Volledig scherm zonder mogelijkheid om te sluiten
 - **Retro Gaming UI** - Neon kleuren, pixel fonts, en 80s/90s arcade esthetiek
 - **Game Grid** - Overzichtelijke weergave van beschikbare games
-- **Keyboard Navigation** - Navigatie met pijltjestoetsen voor arcade joysticks
 
 ### 🔐 Beveiliging
 - **Wachtwoord Exit** - Alleen met juist wachtwoord (`arcade2025`) kan de app afgesloten worden
@@ -93,20 +92,12 @@ In `renderer.js` pas de `games` array aan:
 ### Hardware Vereisten
 - Windows PC (Windows 10/11 recommended)
 - Monitor (1920x1080 of hoger)
-- Arcade joystick/buttons met keyboard encoder
 - Speakers voor geluid
 
 ### Setup voor Arcade Kast
 1. Install als Windows service voor auto-start
 2. Configureer Windows om direct naar launcher te gaan
 3. Schakel Windows updates en notificaties uit
-4. Test alle joystick inputs
-
-### Joystick Mapping
-- **Pijltjes**: Navigatie door games
-- **Button 1**: Selecteren/Bevestigen  
-- **Button 2**: Terug/Annuleren
-- **Admin combo**: Speciale knop combinatie voor admin access
 
 ## Customization
 
