@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcade Launcher</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>    <div id="app">
+        <!-- Background elements -->
+        <div class="bg-stars"></div>
+        <div class="bg-grid"></div>
+        
+        <!-- Notification Container -->
+        <div id="notificationContainer" class="notification-container"></div>
+        
+        <!-- Confirmation Dialog -->
+        <div id="confirmationDialog" class="confirmation-dialog">
+            <div class="confirmation-content">
+                <h3 id="confirmationTitle" class="confirmation-title">Bevestiging</h3>
+                <p id="confirmationMessage" class="confirmation-message">Weet je het zeker?</p>
+                <div class="confirmation-buttons">
+                    <button id="confirmButton" class="retro-btn">JA</button>
+                    <button id="cancelButton" class="retro-btn danger">NEE</button>
+                </div>
+            </div>
+        </div>          <!-- Header -->
+        <header class="arcade-header">
+            <div class="branding">
+                <h1 class="arcade-title">
+                    <span class="title-text">HAAGSE</span>
+                    <span class="title-text">HOGESCHOOL</span>
+                </h1>
+            </div>
+            <div class="header-buttons">
+                <h1 class="arcade-title">
+                    <span class="title-text">GAME</span>
+                    <span class="title-text">LAB</span>
+                </h1>
+            </div>
+        </header>        <!-- Main content -->
+        <main class="game-container">
+            <div class="games-grid" id="gamesGrid">
+                <!-- Games will be loaded here -->
+            </div>
+        </main>
+
+        <!-- Floating Admin/Exit Buttons -->
+        <div class="floating-controls">
+            <button id="adminBtn" class="retro-btn small">ADMIN</button>
+            <button id="exitBtn" class="retro-btn small danger">EXIT</button>
+        </div>        <!-- Embedded Game Container -->
+        <div id="embeddedGameContainer" class="embedded-game-container" style="display: none;">
+            
+            <div class="embedded-game-header">
+                <h2 id="embeddedGameTitle">SPEL NAAM</h2>
+                <div class="embedded-game-controls">
+                    <button onclick="minimizeEmbeddedGame()" class="retro-btn">MINIMALISEREN</button>
+                    <button onclick="closeEmbeddedGame()" class="retro-btn danger">STOP SPEL</button>
+                </div>
+            </div>
+            <div class="embedded-game-content">
+                <iframe id="embeddedGameFrame" src="" frameborder="0"></iframe>
+            </div>
+        </div>
+
+        <!-- Admin Panel Modal -->
+        <div id="adminModal" class="modal">
+            <div class="modal-content admin-panel">
+                <h2>ADMIN PANEL - HAAGSE HOGESCHOOL</h2>
+                
+                <!-- Admin Navigation -->
+                <div class="admin-nav">
+                    <button class="admin-nav-btn active" onclick="showAdminSection('games')">GAMES BEHEER</button>
+                    <button class="admin-nav-btn" onclick="showAdminSection('settings')">INSTELLINGEN</button>
+                    <button class="admin-nav-btn" onclick="showAdminSection('stats')">STATISTIEKEN</button>
+                </div>                <!-- Games Management Section -->
+                <div id="adminGames" class="admin-section">
+                    <div class="admin-controls">
+                        <button class="retro-btn" onclick="showAddGameForm()">NIEUWE GAME TOEVOEGEN</button>
+                        <button class="retro-btn" onclick="refreshGamesList()">GAMES BEWERKER</button>
+                        <button class="retro-btn danger" onclick="clearAllGames()">ALLE GAMES WISSEN</button>
+                    </div>
+                    
+                    <div class="games-list" id="adminGamesList">
+                        <!-- Games list will be populated here -->
+                    </div>
+                </div><!-- Settings Section -->
+                <div id="adminSettings" class="admin-section" style="display: none;">
+                    <div class="settings-grid">
+                        <div class="setting-group">
+                            <label>Exit Wachtwoord:</label>
+                            <input type="password" id="exitPasswordSetting" class="retro-input">
+                            <button class="retro-btn small" onclick="updateExitPassword()">BIJWERKEN</button>
+                        </div>
+                        <div class="setting-group">
+                            <label>Admin Wachtwoord:</label>
+                            <input type="password" id="adminPasswordSetting" class="retro-input">
+                            <button class="retro-btn small" onclick="updateAdminPassword()">BIJWERKEN</button>
+                        </div>
+                        <div class="setting-group">
+                            <label>Cursor Modus:</label>
+                            <select id="cursorModeSetting" class="retro-input">
+                                <option value="auto">Automatisch (Aanbevolen)</option>
+                                <option value="always">Altijd Zichtbaar</option>
+                                <option value="never">Verborgen (Kiosk Modus)</option>
+                            </select>
+                            <button class="retro-btn small" onclick="updateCursorMode()">BIJWERKEN</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Statistics Section -->
+                <div id="adminStats" class="admin-section" style="display: none;">
+                    <div class="stats-grid" id="statsContent">
+                        <!-- Stats will be populated here -->
+                    </div>
+                </div>
+
+                <button class="retro-btn danger" onclick="closeAdmin()">ADMIN PANEL SLUITEN</button>
+            </div>
+        </div>
+
+        <!-- Exit Confirmation Modal -->
+        <div id="exitModal" class="modal">
+            <div class="modal-content">
+                <h2>APPLICATIE AFSLUITEN</h2>
+                <p>Voer het wachtwoord in om de applicatie af te sluiten:</p>
+                <input type="password" id="exitPassword" class="retro-input" placeholder="Wachtwoord...">
+                <div class="modal-buttons">
+                    <button class="retro-btn danger" onclick="confirmExit()">AFSLUITEN</button>
+                    <button class="retro-btn" onclick="closeExitModal()">ANNULEREN</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Password Modal for Admin -->
+        <div id="passwordModal" class="modal">
+            <div class="modal-content">
+                <h2>ADMIN TOEGANG</h2>
+                <p>Voer het admin wachtwoord in:</p>
+                <input type="password" id="adminPassword" class="retro-input" placeholder="Admin wachtwoord...">
+                <div class="modal-buttons">
+                    <button class="retro-btn" onclick="verifyAdminPassword()">TOEGANG</button>
+                    <button class="retro-btn danger" onclick="closePasswordModal()">ANNULEREN</button>
+                </div>
+            </div>
+        </div>        <!-- Game Launch Modal -->
+        <div id="gameModal" class="modal">
+            <div class="modal-content game-launch">
+                <h2 id="gameTitle">GAME TITEL</h2>
+                <div id="gameInfo">
+                    <p id="gameDescription">Game beschrijving...</p>
+                    <div class="game-controls">
+                        <button class="retro-btn large" onclick="launchGame()">SPEL STARTEN</button>
+                        <button class="retro-btn" onclick="closeGameModal()">TERUG</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Game Modal -->
+        <div id="addGameModal" class="modal">
+            <div class="modal-content">
+                <h2>NIEUWE GAME TOEVOEGEN</h2>
+                <form id="addGameForm" class="game-form">
+                    <div class="form-group">
+                        <label>Game Titel:</label>
+                        <input type="text" id="newGameTitle" class="retro-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Beschrijving:</label>
+                        <textarea id="newGameDescription" class="retro-input" rows="3" required></textarea>
+                    </div>                    <div class="form-group">
+                        <label>Genre:</label>
+                        <select id="newGameGenre" class="retro-input" required>
+                            <option value="">Selecteer Genre</option>
+                            <option value="ARCADE">ARCADE</option>
+                            <option value="SHOOTER">SHOOTER</option>
+                            <option value="FIGHTING">FIGHTING</option>
+                            <option value="PLATFORM">PLATFORM</option>
+                            <option value="PUZZLE">PUZZLE</option>
+                            <option value="RACING">RACING</option>
+                            <option value="SPORTS">SPORTS</option>
+                            <option value="RPG">RPG</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Game Type:</label>
+                        <select id="newGameType" class="retro-input" required>
+                            <option value="">Selecteer Type</option>
+                            <option value="executable">Executable (.exe bestand)</option>
+                            <option value="web">Web Game (HTML/URL)</option>
+                            <option value="browser">Browser Game (URL)</option>
+                        </select>
+                    </div><div class="form-group">
+                        <label>Executable Bestand:</label>
+                        <div class="file-input-group">
+                            <input type="text" id="newGameExecutable" class="retro-input" placeholder="bijv: game.exe" required>
+                            <button type="button" class="retro-btn small" onclick="browseForExecutable()">BROWSE</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Afbeelding Pad (optioneel):</label>
+                        <div class="file-input-group">
+                            <input type="text" id="newGameImage" class="retro-input" placeholder="bijv: games/game.jpg">
+                            <button type="button" class="retro-btn small" onclick="browseForImage()">BROWSE</button>
+                        </div>
+                    </div>
+                    <div class="modal-buttons">
+                        <button type="button" class="retro-btn" onclick="addNewGame()">GAME TOEVOEGEN</button>
+                        <button type="button" class="retro-btn danger" onclick="closeAddGameModal()">ANNULEREN</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Edit Game Modal -->
+        <div id="editGameModal" class="modal">
+            <div class="modal-content large-modal">
+                <div class="modal-header">
+                    <h2>GAME BEWERKEN</h2>
+                    <button class="close-btn" onclick="closeEditGameModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="editGameForm">
+                        <div class="form-group">
+                            <label>Game Titel:</label>
+                            <input type="text" id="editGameTitle" class="retro-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Beschrijving:</label>
+                            <textarea id="editGameDescription" class="retro-input" rows="3" required></textarea>
+                        </div>                        <div class="form-group">
+                            <label>Genre:</label>
+                            <select id="editGameGenre" class="retro-input" required>
+                                <option value="">Selecteer Genre</option>
+                                <option value="ARCADE">ARCADE</option>
+                                <option value="SHOOTER">SHOOTER</option>
+                                <option value="FIGHTING">FIGHTING</option>
+                                <option value="PLATFORM">PLATFORM</option>
+                                <option value="PUZZLE">PUZZLE</option>
+                                <option value="RACING">RACING</option>
+                                <option value="SPORTS">SPORTS</option>
+                                <option value="RPG">RPG</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Game Type:</label>
+                            <select id="editGameType" class="retro-input" required>
+                                <option value="">Selecteer Type</option>
+                                <option value="executable">Executable (.exe bestand)</option>
+                                <option value="web">Web Game (HTML/URL)</option>
+                                <option value="browser">Browser Game (URL)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Executable Bestand:</label>
+                            <div class="file-input-group">
+                                <input type="text" id="editGameExecutable" class="retro-input" placeholder="bijv: game.exe" required>
+                                <button type="button" class="retro-btn small" onclick="browseForEditExecutable()">BROWSE</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Afbeelding Pad (optioneel):</label>
+                            <div class="file-input-group">
+                                <input type="text" id="editGameImage" class="retro-input" placeholder="bijv: games/game.jpg">
+                                <button type="button" class="retro-btn small" onclick="browseForEditImage()">BROWSE</button>
+                            </div>
+                        </div>
+                        <div class="modal-buttons">
+                            <button type="button" class="retro-btn" onclick="saveEditedGame()">WIJZIGINGEN OPSLAAN</button>
+                            <button type="button" class="retro-btn danger" onclick="closeEditGameModal()">ANNULEREN</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading screen -->
+        <div id="loadingScreen" class="loading-screen">
+            <div class="loading-content">
+                <h2>LOADING...</h2>
+                <div class="loading-bar">
+                    <div class="loading-fill"></div>
+                </div>
+            </div>
+        </div>
+    </div>    <!-- Load modules in correct order -->
+    <script src="js/configManager.js"></script>
+    <script src="js/gameManager.js"></script>
+    <script src="js/uiManager.js"></script>
+    <script src="js/soundManager.js"></script>
+    <script src="js/gameLauncher.js"></script>
+    <script src="js/adminPanelManager.js"></script>
+    <script src="js/keyboardHandler.js"></script>
+    
+    <!-- Main renderer (now much smaller!) -->
+    <script src="renderer.js"></script>
+</body>
+</html>

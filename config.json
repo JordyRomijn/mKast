@@ -1,0 +1,34 @@
+{
+  "security": {
+    "exitPassword": "exit123",
+    "adminPassword": "admin123"
+  },
+  "branding": {
+    "instituteName": "Haagse Hogeschool",
+    "projectName": "mKast Arcade Launcher",
+    "version": "1.0.0"
+  },
+  "display": {
+    "fullscreen": true,
+    "kiosk": true,
+    "showCursor": true,
+    "cursorMode": "auto"
+  },
+  "games": {
+    "maxGames": 50,
+    "defaultGenres": [
+      "ARCADE",
+      "SHOOTER",
+      "FIGHTING",
+      "PLATFORM",
+      "PUZZLE",
+      "RACING"
+    ],
+    "gamesDirectory": "./games"
+  },
+  "sounds": {
+    "enabled": true,
+    "volume": 0.7,
+    "soundsDirectory": "./sounds"
+  }
+}

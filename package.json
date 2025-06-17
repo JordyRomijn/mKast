@@ -1,0 +1,57 @@
+{
+  "name": "mkast-arcade-launcher",
+  "version": "1.0.0",
+  "description": "Retro-style arcade game launcher voor mKast arcade cabinet",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder",
+    "build-win": "electron-builder --win",
+    "dist": "electron-builder --publish=never",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:verbose": "jest --verbose",
+    "lint": "eslint js/ tests/ *.js",
+    "lint:fix": "eslint js/ tests/ *.js --fix"
+  },
+  "keywords": [
+    "arcade",
+    "launcher",
+    "electron",
+    "retro",
+    "gaming",
+    "kiosk"
+  ],
+  "author": "mKast Arcade",
+  "license": "MIT",
+  "devDependencies": {
+    "@eslint/js": "^9.29.0",
+    "electron": "^36.4.0",
+    "electron-builder": "^25.1.8",
+    "eslint": "^8.57.1",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^30.0.0"
+  },
+  "build": {
+    "appId": "com.mkast.arcade-launcher",
+    "productName": "mKast Arcade Launcher",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!node_modules/**/*",
+      "!dist/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
