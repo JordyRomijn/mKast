@@ -475,6 +475,18 @@ class AdminPanelManager {
         this.uiManager.closeModal('adminModal');
         this.isAdminMode = false;
     }
+
+    // Show admin panel (password prompt)
+    showAdminPanel() {
+        this.uiManager.showModal('passwordModal');
+        setTimeout(() => {
+            const passwordField = document.getElementById('adminPassword');
+            if (passwordField) {
+                passwordField.focus();
+                passwordField.select();
+            }
+        }, 150);
+    }
 }
 
 // Export for use in main renderer and testing

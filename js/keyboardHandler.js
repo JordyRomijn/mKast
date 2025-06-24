@@ -281,6 +281,18 @@ class KeyboardHandler {
         this.debugConsoleVisible = false;
     }
 
+    // Show exit application dialog
+    exitApplication() {
+        this.uiManager.showModal('exitModal');
+        setTimeout(() => {
+            const passwordField = document.getElementById('exitPassword');
+            if (passwordField) {
+                passwordField.focus();
+                passwordField.select();
+            }
+        }, 150);
+    }
+
     // Exit confirmation
     async confirmExit() {
         const passwordField = document.getElementById('exitPassword');

@@ -287,6 +287,22 @@ async function confirmExit() {
     if (keyboardHandler) await keyboardHandler.confirmExit();
 }
 
+function showAdminPanel() {
+    if (adminPanel) adminPanel.showAdminPanel();
+}
+
+function exitApplication() {
+    if (keyboardHandler) keyboardHandler.exitApplication();
+}
+
+function closePasswordModal() {
+    if (uiManager) uiManager.closeModal('passwordModal');
+}
+
+function closeExitModal() {
+    if (uiManager) uiManager.closeModal('exitModal');
+}
+
 async function launchGame() {
     if (gameLauncher) await gameLauncher.launchGame();
 }
@@ -316,6 +332,10 @@ window.browseForEditImage = browseForEditImage;
 window.verifyAdminPassword = verifyAdminPassword;
 window.closeAdmin = closeAdmin;
 window.confirmExit = confirmExit;
+window.showAdminPanel = showAdminPanel;
+window.exitApplication = exitApplication;
+window.closePasswordModal = closePasswordModal;
+window.closeExitModal = closeExitModal;
 window.launchGame = launchGame;
 window.minimizeEmbeddedGame = minimizeEmbeddedGame;
 window.closeEmbeddedGame = closeEmbeddedGame;

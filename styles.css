@@ -202,11 +202,60 @@ body {
     box-shadow: 4px 4px 0 #ffaaaa;
 }
 
-/* Branding styles */
+/* Branding styles - Images instead of text */
 .branding {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+
+.branding .arcade-title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.branding-image {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    height: 90px;
+    width: auto;
+    filter: drop-shadow(2px 2px 0 #1f3242);
+    transition: transform 0.3s ease;
+}
+
+.branding-image:hover {
+    transform: scale(1.05);
+}
+
+.header-buttons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    position: relative;
+}
+
+.header-buttons .floating-controls {
+    position: static;
+    display: flex;
+    gap: 10px;
+    animation: none;
+}
+
+.gamelab-image {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    height: 90px;
+    width: auto;
+    filter: drop-shadow(2px 2px 0 #1f3242);
+    transition: transform 0.3s ease;
+    margin-right: 15px;
+}
+
+.gamelab-image:hover {
+    transform: scale(1.05);
 }
 
 .institute-name {

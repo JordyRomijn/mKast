@@ -25,32 +25,24 @@
                     <button id="cancelButton" class="retro-btn danger">NEE</button>
                 </div>
             </div>
-        </div>          <!-- Header -->
+        </div>        <!-- Header -->
         <header class="arcade-header">
             <div class="branding">
-                <h1 class="arcade-title">
-                    <span class="title-text">HAAGSE</span>
-                    <span class="title-text">HOGESCHOOL</span>
-                </h1>
+                <img src="assets/haagse.png" alt="Haagse Hogeschool" class="branding-image">
             </div>
             <div class="header-buttons">
-                <h1 class="arcade-title">
-                    <span class="title-text">GAME</span>
-                    <span class="title-text">LAB</span>
-                </h1>
+                <img src="assets/gamelab.png" alt="Game Lab" class="gamelab-image">
+                <div class="floating-controls">
+                    <button class="retro-btn" onclick="showAdminPanel()">ADMIN</button>
+                    <button class="retro-btn danger" onclick="exitApplication()">EXIT</button>
+                </div>
             </div>
         </header>        <!-- Main content -->
         <main class="game-container">
             <div class="games-grid" id="gamesGrid">
                 <!-- Games will be loaded here -->
             </div>
-        </main>
-
-        <!-- Floating Admin/Exit Buttons -->
-        <div class="floating-controls">
-            <button id="adminBtn" class="retro-btn small">ADMIN</button>
-            <button id="exitBtn" class="retro-btn small danger">EXIT</button>
-        </div>        <!-- Embedded Game Container -->
+        </main><!-- Embedded Game Container -->
         <div id="embeddedGameContainer" class="embedded-game-container" style="display: none;">
             
             <div class="embedded-game-header">
