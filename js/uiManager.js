@@ -119,9 +119,7 @@ class UIManager {
         };
         
         dialog.style.display = 'flex';
-    }
-
-    // Game grid rendering
+    }    // Game grid rendering
     renderGameGrid(games) {
         const gamesGrid = document.getElementById('gamesGrid');
         if (!gamesGrid) return;
@@ -135,6 +133,11 @@ class UIManager {
                 const gameCard = this.createGameCard(game);
                 gamesGrid.appendChild(gameCard);
             });
+            
+            // Apply responsive classes based on game count
+            if (window.applyResponsiveGridClasses) {
+                window.applyResponsiveGridClasses(games.length);
+            }
         }
     }
 

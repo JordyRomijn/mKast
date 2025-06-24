@@ -277,11 +277,19 @@ body {
 
 .games-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 30px;
-    max-width: 1400px;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: clamp(15px, 2vw, 30px);
+    max-width: 1600px;
     margin: 0 auto;
     padding: 20px;
+}
+
+/* Limit to maximum 4 columns */
+@media (min-width: 1400px) {
+    .games-grid {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 1400px;
+    }
 }
 
 .game-card {
@@ -291,7 +299,7 @@ body {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    height: 280px;
+    height: clamp(240px, 25vh, 320px);
     display: flex;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 255, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -299,7 +307,7 @@ body {
 
 /* Steam-like game card layout */
 .game-card-image {
-    flex: 0 0 200px;
+    flex: 0 0 clamp(120px, 20%, 180px);
     height: 100%;
     position: relative;
     overflow: hidden;
@@ -327,7 +335,7 @@ body {
     align-items: center;
     justify-content: center;
     font-family: 'Press Start 2P', monospace;
-    font-size: 16px;
+    font-size: clamp(8px, 1vw, 12px);
     color: #00ffff;
     text-align: center;
     line-height: 1.4;
@@ -335,61 +343,76 @@ body {
 
 .game-card-content {
     flex: 1;
-    padding: 20px;
+    padding: clamp(8px, 1.5vw, 16px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     color: #ffffff;
+    min-width: 0; /* Prevent flex item from growing beyond container */
 }
 
 .game-header {
-    margin-bottom: 15px;
+    margin-bottom: clamp(8px, 1vw, 15px);
+    min-height: 0; /* Allow shrinking */
 }
 
 .game-title {
-    font-size: 24px;
+    font-size: clamp(12px, 1.8vw, 18px);
     font-weight: bold;
-    margin-bottom: 8px;
+    margin-bottom: clamp(4px, 0.5vw, 8px);
     color: #00ffff;
     text-shadow: 0 2px 4px rgba(0, 255, 255, 0.5);
     font-family: 'Press Start 2P', monospace;
-    line-height: 1.3;
+    line-height: 1.2;
     text-transform: uppercase;
     letter-spacing: 1px;
     word-wrap: break-word;
     hyphens: auto;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .game-author {
-    font-size: 16px;
+    font-size: clamp(10px, 1.2vw, 14px);
     color: #ff6b6b;
     font-family: 'Press Start 2P', monospace;
-    margin-bottom: 5px;
+    margin-bottom: clamp(3px, 0.3vw, 5px);
     text-shadow: 0 1px 2px rgba(255, 107, 107, 0.5);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .game-genre {
     display: inline-block;
     background: linear-gradient(135deg, #ff0080, #ff6b6b);
     color: #ffffff;
-    padding: 6px 12px;
+    padding: clamp(4px, 0.5vw, 6px) clamp(8px, 1vw, 12px);
     border-radius: 20px;
-    font-size: 12px;
+    font-size: clamp(8px, 1vw, 11px);
     font-weight: bold;
     text-transform: uppercase;
     font-family: 'Press Start 2P', monospace;
     letter-spacing: 1px;
     box-shadow: 0 2px 4px rgba(255, 0, 128, 0.3);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 
 .game-description {
-    font-size: 16px;
+    font-size: clamp(10px, 1.2vw, 14px);
     color: #cccccc;
-    line-height: 1.6;
-    margin: 15px 0;
-    font-family: 'Orbitron', monospace;    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    line-clamp: 4;
+    line-height: 1.4;
+    margin: clamp(8px, 1vw, 15px) 0;
+    font-family: 'Orbitron', monospace;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -398,15 +421,17 @@ body {
     word-wrap: break-word;
     hyphens: auto;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    min-height: 0; /* Allow shrinking */
 }
 
 .game-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 15px;
-    padding-top: 15px;
+    margin-top: clamp(8px, 1vw, 15px);
+    padding-top: clamp(8px, 1vw, 15px);
     border-top: 1px solid rgba(255, 255, 255, 0.2);
+    min-height: 0; /* Allow shrinking */
 }
 
 .game-card:hover {
@@ -1238,29 +1263,148 @@ select.retro-input {
     .games-grid {
         grid-template-columns: 1fr;
         gap: 15px;
+        padding: 15px;
     }
     
     .game-card {
-        height: 220px;
+        height: clamp(200px, 22vh, 250px);
     }
     
     .game-card-image {
-        flex: 0 0 150px;
+        flex: 0 0 100px;
     }
     
     .game-title {
-        font-size: 16px;
+        font-size: clamp(10px, 2vw, 14px);
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
     }
     
     .game-author {
-        font-size: 12px;
+        font-size: clamp(8px, 1.5vw, 12px);
     }
     
     .game-description {
-        font-size: 12px;
+        font-size: clamp(9px, 1.8vw, 12px);
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+    }
+    
+    .game-genre {
+        font-size: clamp(7px, 1.2vw, 10px);
+        padding: 3px 6px;
+    }
+}
+
+/* Additional responsive breakpoints for better scaling */
+@media (min-width: 769px) and (max-width: 1200px) {
+    .games-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: clamp(12px, 1.5vw, 25px);
+    }
+    
+    .game-card {
+        height: clamp(220px, 23vh, 280px);
+    }
+    
+    .game-title {
+        font-size: clamp(11px, 1.6vw, 16px);
+    }
+    
+    .game-author {
+        font-size: clamp(9px, 1.1vw, 13px);
+    }
+    
+    .game-description {
+        font-size: clamp(9px, 1.1vw, 13px);
         -webkit-line-clamp: 3;
         line-clamp: 3;
     }
+}
+
+@media (min-width: 1201px) and (max-width: 1399px) {
+    .games-grid {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 1200px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .games-grid {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 1400px;
+    }
+}
+
+/* Dynamic grid classes for better scaling with max 4 columns */
+.games-grid.has-many-games {
+    gap: clamp(12px, 1.5vw, 20px);
+}
+
+.games-grid.has-five-plus-games {
+    gap: clamp(10px, 1.2vw, 16px);
+}
+
+.games-grid.has-many-games .game-card {
+    height: clamp(230px, 24vh, 280px);
+}
+
+.games-grid.has-five-plus-games .game-card {
+    height: clamp(220px, 22vh, 270px);
+}
+
+.games-grid.has-many-games .game-title {
+    font-size: clamp(12px, 1.7vw, 17px);
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+}
+
+.games-grid.has-five-plus-games .game-title {
+    font-size: clamp(11px, 1.5vw, 16px);
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+}
+
+.games-grid.has-many-games .game-author {
+    font-size: clamp(10px, 1.2vw, 14px);
+}
+
+.games-grid.has-five-plus-games .game-author {
+    font-size: clamp(9px, 1.1vw, 13px);
+}
+
+.games-grid.has-many-games .game-description {
+    font-size: clamp(10px, 1.2vw, 14px);
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+}
+
+.games-grid.has-five-plus-games .game-description {
+    font-size: clamp(9px, 1.1vw, 13px);
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+}
+
+.games-grid.has-many-games .game-genre {
+    font-size: clamp(9px, 1.1vw, 12px);
+    padding: clamp(4px, 0.5vw, 6px) clamp(8px, 1vw, 12px);
+}
+
+.games-grid.has-five-plus-games .game-genre {
+    font-size: clamp(8px, 1vw, 11px);
+    padding: clamp(3px, 0.4vw, 5px) clamp(6px, 0.8vw, 10px);
+}
+
+.games-grid.has-five-plus-games .game-card-image {
+    flex: 0 0 clamp(110px, 19%, 160px);
+}
+
+.games-grid.has-many-games .game-card-content {
+    padding: clamp(8px, 1.4vw, 14px);
+}
+
+.games-grid.has-five-plus-games .game-card-content {
+    padding: clamp(7px, 1.2vw, 12px);
 }
 
 /* Enhanced text readability */

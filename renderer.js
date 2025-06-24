@@ -204,6 +204,27 @@ function applyCursorMode(mode) {
     }
 }
 
+// Apply responsive grid classes based on game count
+function applyResponsiveGridClasses(gameCount) {
+    const gamesGrid = document.getElementById('gamesGrid');
+    if (!gamesGrid) return;
+    
+    // Remove existing game count classes
+    gamesGrid.classList.remove('has-many-games', 'has-five-plus-games');
+    
+    // Add appropriate class based on game count
+    if (gameCount >= 7) {
+        gamesGrid.classList.add('has-many-games', 'has-five-plus-games');
+    } else if (gameCount >= 5) {
+        gamesGrid.classList.add('has-five-plus-games');
+    } else if (gameCount >= 4) {
+        gamesGrid.classList.add('has-many-games');
+    }
+    
+    // Also update CSS custom property for more precise control
+    gamesGrid.style.setProperty('--game-count', gameCount);
+}
+
 // Cleanup function for when window is closing
 function cleanup() {
     try {
@@ -316,6 +337,7 @@ function closeEmbeddedGame() {
 }
 
 // Make global functions available
+window.applyResponsiveGridClasses = applyResponsiveGridClasses;
 window.showAddGameForm = showAddGameForm;
 window.addNewGame = addNewGame;
 window.editGame = editGame;
