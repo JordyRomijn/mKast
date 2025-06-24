@@ -140,11 +140,10 @@ class AdminPanelManager {
                 titleField.select();
             }
         }, 150);
-    }
-
-    // Add new game
+    }    // Add new game
     addNewGame() {
         const title = document.getElementById('newGameTitle').value.trim();
+        const author = document.getElementById('newGameAuthor').value.trim();
         const description = document.getElementById('newGameDescription').value.trim();
         const genre = document.getElementById('newGameGenre').value;
         const type = document.getElementById('newGameType').value;
@@ -163,6 +162,7 @@ class AdminPanelManager {
         
         const gameData = {
             title,
+            author: author || 'Unknown Developer',
             description,
             genre,
             type,
@@ -181,9 +181,7 @@ class AdminPanelManager {
             3000
         );
         this.soundManager.playSuccessSound();
-    }
-
-    // Edit game
+    }    // Edit game
     editGame(gameId) {
         const game = this.gameManager.getGame(gameId);
         if (game) {
@@ -191,6 +189,7 @@ class AdminPanelManager {
             
             // Fill the edit form with current game data
             document.getElementById('editGameTitle').value = game.title;
+            document.getElementById('editGameAuthor').value = game.author || 'Unknown Developer';
             document.getElementById('editGameDescription').value = game.description;
             document.getElementById('editGameGenre').value = game.genre;
             document.getElementById('editGameType').value = game.type || 'executable';
@@ -199,13 +198,12 @@ class AdminPanelManager {
             
             this.uiManager.showModal('editGameModal');
         }
-    }
-
-    // Save edited game
+    }    // Save edited game
     saveEditedGame() {
         if (!this.currentEditingGameId) return;
         
         const title = document.getElementById('editGameTitle').value.trim();
+        const author = document.getElementById('editGameAuthor').value.trim();
         const description = document.getElementById('editGameDescription').value.trim();
         const genre = document.getElementById('editGameGenre').value;
         const type = document.getElementById('editGameType').value;
@@ -224,6 +222,7 @@ class AdminPanelManager {
         
         const gameData = {
             title,
+            author: author || 'Unknown Developer',
             description,
             genre,
             type,

@@ -228,171 +228,147 @@ body {
 
 .games-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 40px;
-    max-width: 1200px;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 20px;
 }
 
 .game-card {
-    background: #ffffff;
-    border: 4px solid #1f3242;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    border: 3px solid #00ffff;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    aspect-ratio: 1;
+    height: 280px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 20px;
-    /* Pixel art octagon shape */
-    clip-path: polygon(
-        25% 0%, 75% 0%, 
-        100% 25%, 100% 75%, 
-        75% 100%, 25% 100%, 
-        0% 75%, 0% 25%
-    );
-    box-shadow: 4px 4px 0 #67b9ea;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 255, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-.game-card::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 60%;
-    height: 60%;
-    background: #f0f0f0;
-    transform: translate(-50%, -50%);
-    border: 2px solid #1f3242;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 8px;
-    color: #1f3242;
-    z-index: 1;
+/* Steam-like game card layout */
+.game-card-image {
+    flex: 0 0 200px;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
 }
 
-.game-card::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Press Start 2P', monospace;
-    font-size: 8px;
-    color: #1f3242;
-    z-index: 2;
-    pointer-events: none;
-}
-
-/* Hide ::after when game has image */
-.game-card:has(.game-image)::after {
-    display: none;
-}
-
-/* Game Image Styling */
 .game-image {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 85%;
-    height: 85%;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    transform: translate(-50%, -50%);
-    border: 2px solid #1f3242;
-    z-index: 1;
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
+    transition: transform 0.3s ease;
 }
 
 .game-card:hover .game-image {
-    border-color: #9da800;
-    box-shadow: 0 0 8px rgba(157, 168, 0, 0.6);
-    transform: translate(-50%, -50%) scale(1.02);
+    transform: scale(1.05);
 }
 
 .game-photo-placeholder {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 85%;
-    height: 85%;
-    background: #f0f0f0;
-    transform: translate(-50%, -50%);
-    border: 2px solid #1f3242;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #2a2a3e, #1a1a2e);
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'Press Start 2P', monospace;
-    font-size: 8px;
-    color: #1f3242;
-    z-index: 1;
+    font-size: 16px;
+    color: #00ffff;
+    text-align: center;
+    line-height: 1.4;
 }
 
-.game-card:hover .game-photo-placeholder {
-    background: #e0e0e0;
-    border-color: #9da800;
-    box-shadow: 0 0 8px rgba(157, 168, 0, 0.6);
-    transform: translate(-50%, -50%) scale(1.02);
+.game-card-content {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #ffffff;
 }
 
-@keyframes scan {
-    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-}
-
-.game-card:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 #67b9ea;
-    border-color: #9da800;
+.game-header {
+    margin-bottom: 15px;
 }
 
 .game-title {
-    font-size: 10px;
-    font-weight: normal;
-    margin-bottom: 5px;
-    color: #1f3242;
-    text-shadow: 1px 1px 0 #ffffff;
-    position: absolute;
-    bottom: 25px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 3;
-    line-height: 1.2;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 2px 6px;
-    border-radius: 2px;
-    min-width: 80%;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #00ffff;
+    text-shadow: 0 2px 4px rgba(0, 255, 255, 0.5);
+    font-family: 'Press Start 2P', monospace;
+    line-height: 1.3;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    word-wrap: break-word;
+    hyphens: auto;
 }
 
-.game-description {
-    display: none; /* Hide in pixel art design */
+.game-author {
+    font-size: 16px;
+    color: #ff6b6b;
+    font-family: 'Press Start 2P', monospace;
+    margin-bottom: 5px;
+    text-shadow: 0 1px 2px rgba(255, 107, 107, 0.5);
 }
 
 .game-genre {
-    display: block;
-    background: rgba(157, 168, 0, 0.9);
-    color: #1f3242;
-    padding: 2px 6px;
-    border-radius: 2px;
-    font-size: 8px;
-    font-weight: normal;
+    display: inline-block;
+    background: linear-gradient(135deg, #ff0080, #ff6b6b);
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
     text-transform: uppercase;
-    position: absolute;
-    bottom: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 3;
-    text-align: center;
-    min-width: 60%;
+    font-family: 'Press Start 2P', monospace;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 4px rgba(255, 0, 128, 0.3);
+}
+
+.game-description {
+    font-size: 16px;
+    color: #cccccc;
+    line-height: 1.6;
+    margin: 15px 0;
+    font-family: 'Orbitron', monospace;    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-grow: 1;
+    text-align: justify;
+    word-wrap: break-word;
+    hyphens: auto;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.game-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 255, 255, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-color: #ff0080;
+}
+
+.game-card:hover .game-title {
+    color: #ff0080;
+    text-shadow: 0 2px 8px rgba(255, 0, 128, 0.8);
 }
 
 /* Modals */
@@ -1187,4 +1163,100 @@ select.retro-input {
     opacity: 0.6;
     pointer-events: none;
     transform: scale(0.98);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .games-grid {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 20px;
+    }
+    
+    .game-card {
+        height: 250px;
+    }
+    
+    .game-title {
+        font-size: 20px;
+    }
+    
+    .game-description {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .games-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .game-card {
+        height: 220px;
+    }
+    
+    .game-card-image {
+        flex: 0 0 150px;
+    }
+    
+    .game-title {
+        font-size: 16px;
+    }
+    
+    .game-author {
+        font-size: 12px;
+    }
+    
+    .game-description {
+        font-size: 12px;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+    }
+}
+
+/* Enhanced text readability */
+.game-title {
+    letter-spacing: 1px;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
+.game-description {
+    text-align: justify;
+    word-wrap: break-word;
+    hyphens: auto;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Improved form styling for author field */
+.form-group label {
+    font-size: 12px;
+    color: #00ffff;
+    margin-bottom: 8px;
+    display: block;
+    font-family: 'Press Start 2P', monospace;
+}
+
+/* Better hover effects for game cards */
+.game-card:hover .game-author {
+    color: #00ffff;
+    text-shadow: 0 2px 4px rgba(0, 255, 255, 0.6);
+}
+
+.game-card:hover .game-description {
+    color: #ffffff;
+}
+
+/* Scrollbar styling for description overflow */
+.game-description::-webkit-scrollbar {
+    width: 4px;
+}
+
+.game-description::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.game-description::-webkit-scrollbar-thumb {
+    background: #00ffff;
+    border-radius: 2px;
 }

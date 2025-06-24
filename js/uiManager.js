@@ -158,42 +158,33 @@ class UIManager {
                 </div>
             </div>
         `;
-    }
-
-    createGameCard(game) {
+    }    createGameCard(game) {
         const card = document.createElement('div');
         card.className = 'game-card';
         card.dataset.gameId = game.id;
         
         const hasImage = game.image && game.image.trim() !== '';
         
-        if (hasImage) {
-            const img = document.createElement('img');
-            img.src = game.image;
-            img.className = 'game-image';
-            img.alt = game.title;
-            
-            img.onerror = function() {
-                this.style.display = 'none';
-                const placeholder = card.querySelector('.game-photo-placeholder');
-                if (placeholder) placeholder.style.display = 'flex';
-            };
-            
-            card.innerHTML = `
-                <div class="game-photo-placeholder" style="display: none;">FOTO</div>
-                <h3 class="game-title">${game.title}</h3>
-                <span class="game-genre">${game.genre}</span>
-            `;
-            
-            const title = card.querySelector('.game-title');
-            card.insertBefore(img, title);
-        } else {
-            card.innerHTML = `
-                <div class="game-photo-placeholder">FOTO</div>
-                <h3 class="game-title">${game.title}</h3>
-                <span class="game-genre">${game.genre}</span>
-            `;
-        }        // Add event listeners
+        // Steam-like layout structure
+        card.innerHTML = `
+            <div class="game-card-image">
+                ${hasImage ? 
+                    `<img src="${game.image}" class="game-image" alt="${game.title}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                     <div class="game-photo-placeholder" style="display: none;">NO IMAGE</div>` :
+                    `<div class="game-photo-placeholder">NO IMAGE</div>`
+                }
+            </div>
+            <div class="game-card-content">
+                <div class="game-header">
+                    <h3 class="game-title">${game.title}</h3>
+                    <div class="game-author">${game.author || 'Unknown Developer'}</div>
+                </div>
+                <div class="game-description">${game.description || 'No description available for this game.'}</div>
+                <div class="game-footer">
+                    <span class="game-genre">${game.genre}</span>
+                </div>
+            </div>
+        `;// Add event listeners
         card.addEventListener('click', async () => {
             if (window.gameManager && window.gameLauncher) {
                 // Directly launch the game when clicked

@@ -164,15 +164,18 @@
         <div id="addGameModal" class="modal">
             <div class="modal-content">
                 <h2>NIEUWE GAME TOEVOEGEN</h2>
-                <form id="addGameForm" class="game-form">
-                    <div class="form-group">
+                <form id="addGameForm" class="game-form">                    <div class="form-group">
                         <label>Game Titel:</label>
                         <input type="text" id="newGameTitle" class="retro-input" required>
                     </div>
                     <div class="form-group">
+                        <label>Ontwikkelaar/Auteur:</label>
+                        <input type="text" id="newGameAuthor" class="retro-input" placeholder="bijv: John Doe Games">
+                    </div>
+                    <div class="form-group">
                         <label>Beschrijving:</label>
-                        <textarea id="newGameDescription" class="retro-input" rows="3" required></textarea>
-                    </div>                    <div class="form-group">
+                        <textarea id="newGameDescription" class="retro-input" rows="4" required></textarea>
+                    </div><div class="form-group">
                         <label>Genre:</label>
                         <select id="newGameGenre" class="retro-input" required>
                             <option value="">Selecteer Genre</option>
@@ -224,15 +227,18 @@
                     <button class="close-btn" onclick="closeEditGameModal()">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <form id="editGameForm">
-                        <div class="form-group">
+                    <form id="editGameForm">                        <div class="form-group">
                             <label>Game Titel:</label>
                             <input type="text" id="editGameTitle" class="retro-input" required>
                         </div>
                         <div class="form-group">
+                            <label>Ontwikkelaar/Auteur:</label>
+                            <input type="text" id="editGameAuthor" class="retro-input" placeholder="bijv: John Doe Games">
+                        </div>
+                        <div class="form-group">
                             <label>Beschrijving:</label>
-                            <textarea id="editGameDescription" class="retro-input" rows="3" required></textarea>
-                        </div>                        <div class="form-group">
+                            <textarea id="editGameDescription" class="retro-input" rows="4" required></textarea>
+                        </div><div class="form-group">
                             <label>Genre:</label>
                             <select id="editGameGenre" class="retro-input" required>
                                 <option value="">Selecteer Genre</option>

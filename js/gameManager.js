@@ -20,14 +20,13 @@ class GameManager {
                 this.games = [];
             }
         }
-    }
-
-    // Add new game
+    }    // Add new game
     addGame(gameData) {
         const newGame = {
             id: this.gameIdCounter++,
             title: gameData.title.toUpperCase(),
             description: gameData.description,
+            author: gameData.author || 'Unknown Developer',
             genre: gameData.genre,
             type: gameData.type,
             executable: gameData.executable,
